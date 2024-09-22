@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container, Stack } from "@mui/material";
+import Navbar from "./components/Navbar/Navbar";
+import Basic from "./components/Basic";
+import CustomizedToolbar from "./components/CustomizedToolbar";
+import CustomToolbar from "./components/CustomToolbar";
+import MentionEditor from "./components/MentionEditor";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Navbar />
+      <Container>
+        <Stack alignItems={"center"}>
+          <Basic />
+          {/* <CustomizedToolbar /> */}
+          {/* <CustomToolbar /> */}
+          {/* <MentionEditor /> */}
+        </Stack>
+      </Container>
     </div>
   );
 }

@@ -1,0 +1,50 @@
+import React from 'react'
+import { useQuill } from 'react-quilljs';
+import { Box, Typography } from '@mui/material';
+import 'quill/dist/quill.snow.css';
+
+const CustomizedToolbar = () => {
+
+    const modules = {
+        toolbar: {
+            blotFormatter: {},
+            container: [
+                [{ 'size': ['small', false, 'large', 'huge'] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote'],
+                [{ 'header': 1 }, { 'header': 2 }],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                [{ 'indent': '-1' }, { 'indent': '+1' }],
+                [{ 'direction': 'rtl' }],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'align': [] }],
+                ['clean']
+            ],
+        }
+    }
+
+    const { quill, quillRef, Quill } = useQuill({ theme: "snow", modules });
+
+    if(Quill){
+        const icons = Quill.import('ui/icons');
+        icons.bold = "B"
+    }
+
+    React.useEffect(() => {
+        if (quill) {
+            quill.clipboard.dangerouslyPasteHTML('<h1>React Hook for Quill!</h1>');
+        }
+    }, [quill]);
+
+    return (
+        <Box mt={10}>
+            <Typography>Customized Toolbar</Typography>
+            <Box style={{ width: 600, height: 300 }}>
+                <Box ref={quillRef} />
+            </Box>
+        </Box>
+
+    )
+}
+
+export default CustomizedToolbar
