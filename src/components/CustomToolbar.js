@@ -5,6 +5,7 @@ import Select from "react-select"
 import BlotFormatter from 'quill-blot-formatter';
 import { Box, Stack, Typography } from '@mui/material';
 import { bold, bulletpoints, italic, numberedpoints, underline } from '../assets';
+import Output from './Output';
 import { Toaster } from '../Toaster';
 import "../utils/fontSizeModule";
 import "../utils/ImageBlot";
@@ -33,6 +34,7 @@ const CustomToolbar = () => {
     const [selectedFontSize, setSelectedFontSize] = useState({ value: defaultFontSize, label: defaultFontSize });
     const [textColor, setTextColor] = useState("#000");
     const [range, setRange] = useState();
+    const [editorContent, setEditorContent] = useState('<p>React Hook for Quill!</p>');  
 
     if (Quill && !quill) {
         Quill.register('modules/blotFormatter', BlotFormatter);
@@ -107,7 +109,10 @@ const CustomToolbar = () => {
 
     useEffect(() => {
         if (quill) {
+            quill.clipboard.dangerouslyPasteHTML('<p>React Hook for Quill!</p>');
+
             quill.on('text-change', (delta, oldDelta, source) => {
+                setEditorContent(quill.root.innerHTML); 
                 const currentRange = quill.getSelection();
                 if (currentRange) {
                     setRange(currentRange);
@@ -162,12 +167,6 @@ const CustomToolbar = () => {
         };
     }, [quill]);
 
-    React.useEffect(() => {
-        if (quill) {
-            quill.clipboard.dangerouslyPasteHTML('<p>React Hook for Quill!</p>');
-        }
-    }, [quill]);
-
     const uploadImage = async () => {
         // Simultae api call and return url
         return "https://picsum.photos/200"
@@ -205,7 +204,7 @@ const CustomToolbar = () => {
 
 
     return (
-        <Box mt={10}>
+        <Box mt={5}>
             <Typography>Custom Toolbar</Typography>
             <Box style={{ width: 600, height: 300 }}>
                 <Box overflow={"hidden"} ref={quillRef} />
@@ -246,6 +245,7 @@ const CustomToolbar = () => {
                     <input type="file" accept="image/*" id={`image-upload`} style={{ display: 'none' }} onChange={handleImageUpload} />
                 </Stack>
             </Box>
+            <Output content={editorContent} /> 
         </Box >
     )
 }

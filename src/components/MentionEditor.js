@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuill } from 'react-quilljs';
 import { Box, Typography } from '@mui/material';
 import "quill-mention/autoregister";
+import Output from './Output';
 import 'quill-mention/dist/quill.mention.css';
 import 'quill/dist/quill.snow.css';
 
@@ -33,6 +34,7 @@ const hashValues = [
 ];
 
 const MentionEditor = () => {
+  const [editorContent, setEditorContent] = useState('<p>React Hook for Quill!</p>');
 
   const modules = {
     mention: {
@@ -55,16 +57,19 @@ const MentionEditor = () => {
   React.useEffect(() => {
     if (quill) {
       quill.clipboard.dangerouslyPasteHTML('<p>React Hook for Quill!!</p>');
-
+      quill.on('text-change', () => {
+        setEditorContent(quill.root.innerHTML);
+      });
     }
   }, [quill]);
 
   return (
-    <Box mt={10}>
+    <Box mt={5}>
       <Typography>Mention</Typography>
       <Box style={{ width: 600, height: 300 }}>
         <Box ref={quillRef} />
       </Box>
+      <Output content={editorContent} />
     </Box>
   )
 }
