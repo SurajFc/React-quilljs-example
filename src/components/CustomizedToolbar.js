@@ -8,7 +8,6 @@ const CustomizedToolbar = () => {
 
     const modules = {
         toolbar: {
-            blotFormatter: {},
             container: [
                 [{ 'size': ['small', false, 'large', 'huge'] }],
                 ['bold', 'italic', 'underline', 'strike'],
@@ -16,7 +15,6 @@ const CustomizedToolbar = () => {
                 [{ 'header': 1 }, { 'header': 2 }],
                 [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
                 [{ 'indent': '-1' }, { 'indent': '+1' }],
-                [{ 'direction': 'rtl' }],
                 [{ 'color': [] }, { 'background': [] }],
                 [{ 'align': [] }],
                 ['clean']
@@ -29,7 +27,7 @@ const CustomizedToolbar = () => {
 
     if(Quill){
         const icons = Quill.import('ui/icons');
-        icons.bold = "B"
+        icons.bold = "Bo"
     }
 
     React.useEffect(() => {

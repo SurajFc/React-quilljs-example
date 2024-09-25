@@ -9,6 +9,7 @@ import Output from './Output';
 import { Toaster } from '../Toaster';
 import "../utils/fontSizeModule";
 import "../utils/ImageBlot";
+import 'quill/dist/quill.snow.css';
 
 const CustomToolbar = () => {
     const colorRef = useRef()
